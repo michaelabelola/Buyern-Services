@@ -1,0 +1,33 @@
+{
+  "properties": [
+    {
+      "name": "kafka.message.topic.notification.email",
+      "type": "java.lang.String",
+      "description": "Description for kafka.message.topic.notification.email."
+    },
+    {
+      "name": "kafka.message.topic.notification.phone",
+      "type": "java.lang.String",
+      "description": "Description for kafka.message.topic.notification.phone."
+    },
+    {
+      "name": "kafka.message.topic.notification.push",
+      "type": "java.lang.String",
+      "description": "Description for kafka.message.topic.notification.push."
+    },
+    {
+      "name": "test-connection",
+      "type": "java.lang.String",
+      "description": "Description for test-connection."
+    },
+    {
+      "name": "springdoc.api-docs.path",
+      "type": "java.lang.String",
+      "description": "Description for springdoc.api-docs.path."
+    },
+    {
+      "name": "springdoc.swagger-ui.path",
+      "type": "java.lang.String",
+      "description": "Description for springdoc.swagger-ui.path."
+    }
+  ] }

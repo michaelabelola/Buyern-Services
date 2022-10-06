@@ -25,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConstructorBinding;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class UserAuthService {
     final JwtTokenGeneratorService jwtTokenGeneratorService;
     final TokenService tokenService;
     final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-//    final KafkaTemplate<String, NotificationModel<?>> kafkaNotificationTemplate;
+    final KafkaTemplate<String, NotificationModel<?>> kafkaNotificationTemplate;
     @Value("${kafka.message.topic.notification.email}")
     String emailNotificationTopic;
     @Value("${jwt.user.token.prefix}")
@@ -105,11 +106,11 @@ public class UserAuthService {
                 "</html>";
         NotificationModel<EmailRecipient> notificationModel = new NotificationModel<>();
         notificationModel.setContent(emailContent);
-        notificationModel.setTitle("Title");
+        notificationModel.setTitle("Password Reset");
         notificationModel.setType(NotificationType.MAIL);
         notificationModel.setRecipient(EmailRecipient.builder().email(userAuth.getEmail()).type(RecipientType.USER).uid(userAuth.getUid()).build());
         // send verification mail
-//        kafkaNotificationTemplate.send(emailNotificationTopic, userAuth.getEmail(), notificationModel);
+        kafkaNotificationTemplate.send(emailNotificationTopic, userAuth.getEmail(), notificationModel);
         return new ResponseDTO.OfObject("00", "success: " + "password change token generated and sent to " + userAuth.getEmail(), customToken);
 
     }
